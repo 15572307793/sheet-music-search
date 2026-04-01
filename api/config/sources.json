@@ -1,23 +1,23 @@
 {
   "sources": [
     {
-      "name": "专业钢琴曲谱网站A",
+      "name": "IMSLP 国际乐谱图书馆",
       "priority": "high",
-      "baseUrl": "https://example-piano-a.com",
+      "baseUrl": "https://imslp.org",
       "enabled": true,
       "timeout": 10000
     },
     {
-      "name": "综合乐谱网站B",
+      "name": "8notes",
       "priority": "medium",
-      "baseUrl": "https://example-sheet-b.com",
+      "baseUrl": "https://www.8notes.com",
       "enabled": true,
       "timeout": 10000
     },
     {
-      "name": "流行音乐曲谱网站C",
+      "name": "Free-Scores",
       "priority": "low",
-      "baseUrl": "https://example-pop-c.com",
+      "baseUrl": "https://www.free-scores.com",
       "enabled": true,
       "timeout": 10000
     }

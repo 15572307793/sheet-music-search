@@ -7,9 +7,9 @@ import type {
   RawSearchResult,
 } from '../../src/types/index';
 import { fetchWithTimeout, type SourceAdapter } from '../adapters/SourceAdapter';
-import { PianoSiteAdapter } from '../adapters/PianoSiteAdapter';
-import { SheetMusicSiteAdapter } from '../adapters/SheetMusicSiteAdapter';
-import { PopMusicSiteAdapter } from '../adapters/PopMusicSiteAdapter';
+import { IMSLPAdapter } from '../adapters/IMSLPAdapter';
+import { EightNotesAdapter } from '../adapters/EightNotesAdapter';
+import { FreeScoresAdapter } from '../adapters/FreeScoresAdapter';
 import { calculateMatchScore } from '../utils/matchScore';
 import { compareResults } from '../utils/sortResults';
 import { deduplicateResults } from '../utils/deduplicateResults';
@@ -70,15 +70,18 @@ function transformResult(
  * 根据 SourceConfig 创建对应的适配器实例
  */
 function createAdapter(config: SourceConfig): SourceAdapter {
-  switch (config.priority) {
-    case 'high':
-      return new PianoSiteAdapter(config);
-    case 'medium':
-      return new SheetMusicSiteAdapter(config);
-    case 'low':
-      return new PopMusicSiteAdapter(config);
+  switch (config.name) {
+    case 'IMSLP 国际乐谱图书馆':
+      return new IMSLPAdapter(config);
+    case '8notes':
+      return new EightNotesAdapter(config);
+    case 'Free-Scores':
+      return new FreeScoresAdapter(config);
     default:
-      return new SheetMusicSiteAdapter(config);
+      // 按优先级回退
+      if (config.priority === 'high') return new IMSLPAdapter(config);
+      if (config.priority === 'medium') return new EightNotesAdapter(config);
+      return new FreeScoresAdapter(config);
   }
 }
 
