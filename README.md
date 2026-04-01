@@ -60,12 +60,24 @@ npm run build
 
 ## 部署
 
-项目设计为部署到 Vercel：
+项目使用 Cloudflare Pages 部署（免费，国内可访问）：
 
 1. 将代码推送到 GitHub
-2. 在 [vercel.com](https://vercel.com) 导入仓库
-3. 点击 Deploy，自动构建部署
-4. 获得 `xxx.vercel.app` 域名即可使用
+2. 打开 [dash.cloudflare.com](https://dash.cloudflare.com)，注册/登录
+3. 进入 Workers & Pages → Create → Pages → Connect to Git
+4. 选择你的 GitHub 仓库
+5. 构建设置：
+   - 构建命令：`npm run build`
+   - 输出目录：`dist`
+6. 点击 Deploy
+
+部署完成后获得 `xxx.pages.dev` 域名，国内可直接访问。
+
+也可以用命令行部署：
+
+```bash
+npm run pages:deploy
+```
 
 ## 接入真实数据源
 

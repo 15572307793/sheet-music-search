@@ -1,4 +1,0 @@
-# 排除测试文件，避免被当作 Serverless Functions
-api/**/*.test.ts
-src/**/*.test.ts
-src/**/*.test.tsx
