@@ -10,9 +10,12 @@ import { fetchWithTimeout, type SourceAdapter } from '../adapters/SourceAdapter'
 import { IMSLPAdapter } from '../adapters/IMSLPAdapter';
 import { EightNotesAdapter } from '../adapters/EightNotesAdapter';
 import { FreeScoresAdapter } from '../adapters/FreeScoresAdapter';
+import { EveryonePianoAdapter } from '../adapters/EveryonePianoAdapter';
+import { Tan8Adapter } from '../adapters/Tan8Adapter';
 import { calculateMatchScore } from '../utils/matchScore';
 import { compareResults } from '../utils/sortResults';
 import { deduplicateResults } from '../utils/deduplicateResults';
+import { getQueryVariants } from '../utils/translateQuery';
 import sourcesConfigRaw from '../config/sources.json';
 
 const sourcesConfig = sourcesConfigRaw as { sources: SourceConfig[] };
@@ -73,12 +76,15 @@ function createAdapter(config: SourceConfig): SourceAdapter {
   switch (config.name) {
     case 'IMSLP 国际乐谱图书馆':
       return new IMSLPAdapter(config);
+    case '人人钢琴网':
+      return new EveryonePianoAdapter(config);
+    case '弹琴吧':
+      return new Tan8Adapter(config);
     case '8notes':
       return new EightNotesAdapter(config);
     case 'Free-Scores':
       return new FreeScoresAdapter(config);
     default:
-      // 按优先级回退
       if (config.priority === 'high') return new IMSLPAdapter(config);
       if (config.priority === 'medium') return new EightNotesAdapter(config);
       return new FreeScoresAdapter(config);
@@ -114,6 +120,12 @@ export async function searchEngine(
 
   const factory = adapterFactory ?? createAdapter;
 
+  // 获取查询的中英文变体
+  const variants = getQueryVariants(query);
+
+  // 英文数据源列表
+  const englishSources = new Set(['IMSLP 国际乐谱图书馆', '8notes', 'Free-Scores']);
+
   // 分离高优先级和其他数据源
   const highPrioritySources = enabledSources.filter((s) => s.priority === 'high');
   const otherSources = enabledSources.filter((s) => s.priority !== 'high');
@@ -121,7 +133,11 @@ export async function searchEngine(
   // 为每个数据源创建适配器和查询 Promise
   const createFetchPromise = (config: SourceConfig) => {
     const adapter = factory(config);
-    return fetchWithTimeout(adapter, query, 1, 100, config.timeout).then((rawResults) => ({
+    // 英文数据源使用翻译后的查询（如果有），否则用原始查询
+    const searchQuery = englishSources.has(config.name) && variants.english
+      ? variants.english
+      : query;
+    return fetchWithTimeout(adapter, searchQuery, 1, 100, config.timeout).then((rawResults) => ({
       config,
       rawResults,
     }));
@@ -201,8 +217,16 @@ export async function searchEngine(
     allResults = [...highPriorityResults, ...nonHighResults];
   }
 
+  // 过滤低匹配度结果（保留匹配度 ≥ 0.1 的结果，即至少有部分关键词匹配）
+  // 数据源返回的结果本身已经过搜索过滤，这里只排除完全不相关的
+  const MIN_MATCH_SCORE = 0.1;
+  const filtered = allResults.filter((r) => r.matchScore >= MIN_MATCH_SCORE);
+
+  // 如果过滤后没有结果，回退到显示所有结果（数据源认为相关的）
+  const finalResults = filtered.length > 0 ? filtered : allResults;
+
   // 去重
-  const deduplicated = deduplicateResults(allResults);
+  const deduplicated = deduplicateResults(finalResults);
 
   // 分页
   const total = deduplicated.length;

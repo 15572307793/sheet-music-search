@@ -1,9 +1,23 @@
 {
   "sources": [
     {
+      "name": "人人钢琴网",
+      "priority": "high",
+      "baseUrl": "https://www.everyonepiano.cn",
+      "enabled": true,
+      "timeout": 10000
+    },
+    {
       "name": "IMSLP 国际乐谱图书馆",
       "priority": "high",
       "baseUrl": "https://imslp.org",
+      "enabled": true,
+      "timeout": 10000
+    },
+    {
+      "name": "弹琴吧",
+      "priority": "medium",
+      "baseUrl": "https://www.tan8.com",
       "enabled": true,
       "timeout": 10000
     },
