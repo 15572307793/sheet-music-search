@@ -1,0 +1,25 @@
+{
+  "sources": [
+    {
+      "name": "专业钢琴曲谱网站A",
+      "priority": "high",
+      "baseUrl": "https://example-piano-a.com",
+      "enabled": true,
+      "timeout": 10000
+    },
+    {
+      "name": "综合乐谱网站B",
+      "priority": "medium",
+      "baseUrl": "https://example-sheet-b.com",
+      "enabled": true,
+      "timeout": 10000
+    },
+    {
+      "name": "流行音乐曲谱网站C",
+      "priority": "low",
+      "baseUrl": "https://example-pop-c.com",
+      "enabled": true,
+      "timeout": 10000
+    }
+  ]
+}

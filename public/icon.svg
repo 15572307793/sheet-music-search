@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#1e40af"/>
+  <g transform="translate(256,256)">
+    <!-- Music note symbol -->
+    <ellipse cx="-40" cy="80" rx="45" ry="35" fill="white" transform="rotate(-15)"/>
+    <rect x="0" y="-120" width="12" height="200" fill="white" rx="6"/>
+    <path d="M12,-120 Q80,-160 80,-100 Q80,-50 12,-80" fill="white"/>
+    <!-- Staff lines -->
+    <line x1="-120" y1="-60" x2="120" y2="-60" stroke="white" stroke-width="3" opacity="0.5"/>
+    <line x1="-120" y1="-30" x2="120" y2="-30" stroke="white" stroke-width="3" opacity="0.5"/>
+    <line x1="-120" y1="0" x2="120" y2="0" stroke="white" stroke-width="3" opacity="0.5"/>
+    <line x1="-120" y1="30" x2="120" y2="30" stroke="white" stroke-width="3" opacity="0.5"/>
+    <line x1="-120" y1="60" x2="120" y2="60" stroke="white" stroke-width="3" opacity="0.5"/>
+  </g>
+</svg>
