@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { searchEngine } from './searchEngine';
-import type { SourceConfig, RawSearchResult } from '../src/types/index';
-import type { SourceAdapter } from './adapters/SourceAdapter';
+import type { SourceConfig, RawSearchResult } from '../../src/types/index';
+import type { SourceAdapter } from '../adapters/SourceAdapter';
 
 // --- Test helpers ---
 

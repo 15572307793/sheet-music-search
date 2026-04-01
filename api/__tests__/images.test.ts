@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import handler from './images';
+import handler from '../images';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 function createMockReq(overrides: Partial<VercelRequest> = {}): VercelRequest {

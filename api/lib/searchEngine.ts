@@ -5,15 +5,15 @@ import type {
   SourcePriority,
   QualityTag,
   RawSearchResult,
-} from '../src/types/index';
-import { fetchWithTimeout, type SourceAdapter } from './adapters/SourceAdapter';
-import { PianoSiteAdapter } from './adapters/PianoSiteAdapter';
-import { SheetMusicSiteAdapter } from './adapters/SheetMusicSiteAdapter';
-import { PopMusicSiteAdapter } from './adapters/PopMusicSiteAdapter';
-import { calculateMatchScore } from './utils/matchScore';
-import { compareResults } from './utils/sortResults';
-import { deduplicateResults } from './utils/deduplicateResults';
-import sourcesConfigRaw from './config/sources.json';
+} from '../../src/types/index';
+import { fetchWithTimeout, type SourceAdapter } from '../adapters/SourceAdapter';
+import { PianoSiteAdapter } from '../adapters/PianoSiteAdapter';
+import { SheetMusicSiteAdapter } from '../adapters/SheetMusicSiteAdapter';
+import { PopMusicSiteAdapter } from '../adapters/PopMusicSiteAdapter';
+import { calculateMatchScore } from '../utils/matchScore';
+import { compareResults } from '../utils/sortResults';
+import { deduplicateResults } from '../utils/deduplicateResults';
+import sourcesConfigRaw from '../config/sources.json';
 
 const sourcesConfig = sourcesConfigRaw as { sources: SourceConfig[] };
 

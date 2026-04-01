@@ -1,13 +1,13 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import handler from './search';
+import handler from '../search';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 // Mock searchEngine
-vi.mock('./searchEngine', () => ({
+vi.mock('../lib/searchEngine', () => ({
   searchEngine: vi.fn(),
 }));
 
-import { searchEngine } from './searchEngine';
+import { searchEngine } from '../lib/searchEngine';
 const mockSearchEngine = vi.mocked(searchEngine);
 
 function createMockReq(overrides: Partial<VercelRequest> = {}): VercelRequest {
